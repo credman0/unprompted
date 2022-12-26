@@ -141,10 +141,10 @@ class Shortcode():
 			mask_padding = int(self.Unprompted.parse_advanced(kwargs["padding"],context) if "padding" in kwargs else 0)
 			if (mask_padding > 0):
 				aspect_ratio = self.Unprompted.shortcode_user_vars["init_images"][0].width / self.Unprompted.shortcode_user_vars["init_images"][0].height
-				new_width = self.Unprompted.shortcode_user_vars["init_images"][0].width+mask_padding*2
+				new_width = self.Unprompted.shortcode_user_vars["init_images"][0].width-mask_padding*2
 				new_height = round(new_width / aspect_ratio)
-				final_img = final_img.resize((new_width,new_height))
-				final_img = center_crop(final_img,self.Unprompted.shortcode_user_vars["init_images"][0].width,self.Unprompted.shortcode_user_vars["init_images"][0].height)
+				final_img = center_crop(final_img,new_width,new_height)
+				final_img = final_img.resize((self.Unprompted.shortcode_user_vars["init_images"][0].width,self.Unprompted.shortcode_user_vars["init_images"][0].height))
 
 			return final_img
 
